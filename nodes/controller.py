@@ -20,7 +20,7 @@ def move_callback(message):
     elif command == "backward":
         rospy.loginfo("Moving backward ...")
         twist.linear.x = rospy.get_param("/x_vel", 0.1) * -1.0
-        twist.linear.y = rospy.get_param("/y_vel",0)
+        twist.linear.y = rospy.get_param("/y_vel",0) * -1.0
 
     elif command == "left":
         rospy.loginfo("Moving left ...")
