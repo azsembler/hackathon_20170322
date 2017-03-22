@@ -14,21 +14,25 @@ def move_callback(message):
 
     if  command == "forward":
         rospy.loginfo("Moving forward ...")
-        twist.linear.x = 0.1
+        twist.linear.x = rospy.get_param("/x_vel", 0.1)
+        twist.linear.y = rospy.get_param("/y_vel",0)
 
     elif command == "backward":
         rospy.loginfo("Moving backward ...")
-        twist.linear.x = -0.1
+        twist.linear.x = rospy.get_param("/x_vel", 0.1) * -1.0
+        twist.linear.y = rospy.get_param("/y_vel",0)
 
     elif command == "left":
         rospy.loginfo("Moving left ...")
-        twist.linear.x = 0.1
-        twist.angular.z = 0.2
+        twist.linear.x = rospy.get_param("/x_vel", 0.1)
+        twist.linear.y = rospy.get_param("/y_vel",0)
+        twist.angular.z = rospy.get_param("/theta_val", 0.2)
 
     elif command == "right":
         rospy.loginfo("Moving right ...")
-        twist.linear.x = 0.1
-        twist.angular.z = -0.2
+        twist.linear.x = rospy.get_param("/x_vel", 0.1)
+        twist.linear.y = rospy.get_param("/y_vel",0)
+        twist.angular.z = rospy.get_param("/theta_val", 0.2) * -1.0
 
     lastTwist = twist
 
@@ -53,6 +57,7 @@ def trigger_callback(message):
         twist = Twist()
 
         twist.linear.x = 0
+        twist.linear.y = 0
         twist.angular.z = 0
 
         youBot_publisher.publish(twist)
